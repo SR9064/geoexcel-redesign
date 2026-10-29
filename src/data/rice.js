@@ -1,0 +1,266 @@
+// Rice products, transcribed from the live GeoExcel site (28 Oct 2026).
+// Rules used when transcribing:
+//  - Values are copied as listed on the site. Nothing is silently "fixed".
+//  - Where the site contradicts itself, the conflict is recorded in `notes`
+//    and shown to buyers as "To be confirmed by GeoExcel".
+//  - `type` and `process` are derived from the product name; if the name
+//    doesn't say, process is "Not stated".
+//  - The site spells it "HNS Code"; we call the field hsCode.
+//  - The site lists 14 entries; 1509 Basmati Sella and PR 11 each appear
+//    twice, so there are 12 unique varieties here.
+
+const BASMATI_SIZES = ['5 kg', '10 kg', '20 kg', '25 kg'];
+const BASMATI_BAGS = ['Plastic sack bag', 'Jute bag', 'PP bag', 'Plastic bag'];
+const SOUTH_SIZES = ['5 kg', '26 kg', '50 kg'];
+const SOUTH_BAGS = ['PP bag', 'Plastic bag'];
+const HS = '10063020';
+
+export const rice = [
+  {
+    id: 'rice-1121-steam',
+    name: '1121 Basmati Steam Rice',
+    category: 'rice',
+    type: 'Basmati',
+    process: 'Steam',
+    grain: 'Extra long',
+    origin: ['Punjab'],
+    packSizes: BASMATI_SIZES,
+    packTypes: BASMATI_BAGS,
+    broken: '0.25%',
+    moisture: '12%',
+    colour: 'Creamy',
+    hsCode: HS,
+    speciality: 'No artificial flavour, no preservatives',
+    summary:
+      'Extra long grain, fully polished, sortexed. Average grain length 8.35 mm.',
+    notes: [],
+  },
+  {
+    id: 'rice-1121-sella',
+    name: '1121 Basmati Sella Rice',
+    category: 'rice',
+    type: 'Basmati',
+    process: 'Sella',
+    grain: 'Extra long',
+    origin: ['Punjab'],
+    packSizes: BASMATI_SIZES,
+    packTypes: BASMATI_BAGS,
+    broken: '0.25%',
+    moisture: '14%',
+    colour: 'Creamy white',
+    hsCode: HS,
+    speciality: 'No artificial flavour, no preservatives',
+    summary:
+      'Extra long grain, fully polished, sortex clean. Average length above 8.35 mm.',
+    notes: [
+      'Moisture is 14% in the description, but the specification says "13.5.0% maximum" (typo on source).',
+    ],
+  },
+  {
+    id: 'rice-1121-golden-sella',
+    name: '1121 Basmati Golden Sella Rice',
+    category: 'rice',
+    type: 'Basmati',
+    process: 'Sella',
+    grain: 'Extra long',
+    origin: ['Punjab'],
+    packSizes: BASMATI_SIZES,
+    packTypes: BASMATI_BAGS,
+    broken: '0.25%',
+    moisture: '14%',
+    colour: 'Golden',
+    hsCode: HS,
+    speciality: 'No artificial flavour, no preservatives',
+    summary:
+      'Golden colour, long thin grain. Used for biryani, pulao and fried rice.',
+    notes: [
+      'Description says broken 0.25% and moisture 14%; the specification says broken 0.5% and moisture 13% max.',
+    ],
+  },
+  {
+    id: 'rice-pusa-1401-steam',
+    name: 'Pusa 1401 Basmati Steam Rice',
+    category: 'rice',
+    type: 'Basmati',
+    process: 'Steam',
+    grain: 'Long',
+    origin: ['Punjab'],
+    packSizes: BASMATI_SIZES,
+    packTypes: BASMATI_BAGS,
+    broken: '0.25%',
+    moisture: '14%',
+    colour: 'Creamy white',
+    hsCode: HS,
+    speciality: 'Pure 1401 Basmati rice',
+    summary:
+      'Polished, sortex rice. Average length before cooking 7.8 mm. Also listed as available parboiled (sella).',
+    notes: [
+      'Description says broken 0.25% and moisture 14%; the specification says broken nil and moisture 12% max.',
+    ],
+  },
+  {
+    id: 'rice-1509-sella',
+    name: '1509 Basmati Sella Rice',
+    category: 'rice',
+    type: 'Basmati',
+    process: 'Sella',
+    grain: 'Extra long',
+    origin: ['Punjab'],
+    packSizes: BASMATI_SIZES,
+    packTypes: BASMATI_BAGS,
+    broken: '0.50%',
+    moisture: '11%',
+    colour: 'Creamy white',
+    hsCode: HS,
+    speciality: 'Pure 1509 Basmati rice',
+    summary: 'Extra long grain, average length 8.4 mm, free from impurities.',
+    notes: [
+      'Listed twice on the source: one entry says moisture 11%, the other 13% (both specifications say 11%). 11% used here.',
+    ],
+  },
+  {
+    id: 'rice-1509-steam',
+    name: '1509 Basmati Steam Rice',
+    category: 'rice',
+    type: 'Basmati',
+    process: 'Steam',
+    grain: 'Extra long',
+    origin: ['Punjab'],
+    packSizes: BASMATI_SIZES,
+    packTypes: BASMATI_BAGS,
+    broken: '0.50%',
+    moisture: '11%',
+    colour: 'Creamy white',
+    hsCode: HS,
+    speciality: 'Pure 1509 Basmati rice',
+    summary: 'Extra long grain, average length 8.4 mm, free from impurities.',
+    notes: [],
+  },
+  {
+    id: 'rice-pr11-steam',
+    name: 'PR 11 Steam Long Grain Rice',
+    category: 'rice',
+    type: 'Non-basmati',
+    process: 'Steam',
+    grain: 'Long',
+    origin: ['Punjab'],
+    packSizes: BASMATI_SIZES,
+    packTypes: BASMATI_BAGS,
+    broken: '1.00%',
+    moisture: '12%',
+    colour: 'Creamy white',
+    hsCode: HS,
+    speciality: null,
+    summary:
+      'Non-basmati, sortexed. Average grain length 6.85 mm. Also known as biryani rice.',
+    notes: [
+      'Listed as "Non Basmati Rice", but the Speciality line says "Pure 1509 Basmati rice". Speciality left blank here.',
+      'Appears twice on the source with identical content.',
+    ],
+  },
+  {
+    id: 'rice-ir64',
+    name: 'IR 64 Rice',
+    category: 'rice',
+    type: 'Non-basmati',
+    process: 'Parboiled',
+    grain: 'Long',
+    origin: ['Andhra Pradesh', 'Chhattisgarh', 'Gujarat'],
+    packSizes: ['26 kg', '50 kg'],
+    packTypes: SOUTH_BAGS,
+    broken: '5.00%',
+    moisture: '14%',
+    colour: 'White',
+    hsCode: HS,
+    speciality: 'Parboiled',
+    summary:
+      'Parboiled (sella) rice, average grain length 5.9 mm, 100% sortexed.',
+    notes: [
+      'Source spells the regions "Andhra, Chattisgarg, Gujarat"; normalised spelling used here.',
+    ],
+  },
+  {
+    id: 'rice-sona-masuri-steam',
+    name: 'Sona Masuri Steam Rice',
+    category: 'rice',
+    type: 'Non-basmati',
+    process: 'Steam',
+    grain: 'Short',
+    origin: ['Karnataka', 'Andhra Pradesh'],
+    packSizes: ['26 kg', '50 kg'],
+    packTypes: SOUTH_BAGS,
+    broken: '5.00%',
+    moisture: '14%',
+    colour: 'Creamy white',
+    hsCode: HS,
+    speciality: '100% sortex rice',
+    summary: 'Aromatic, longer shelf life, 100% sortexed quality.',
+    notes: [],
+  },
+  {
+    id: 'rice-ponni',
+    name: 'Ponni Rice',
+    category: 'rice',
+    type: 'Non-basmati',
+    process: 'Not stated',
+    grain: 'Short',
+    origin: ['Tamil Nadu'],
+    packSizes: SOUTH_SIZES,
+    packTypes: SOUTH_BAGS,
+    broken: '5.00%',
+    moisture: '14%',
+    colour: 'Creamy white',
+    hsCode: HS,
+    speciality: '100% sortex rice',
+    summary: 'From the Thanjavur region of Tamil Nadu. Long shelf life.',
+    notes: [],
+  },
+  {
+    id: 'rice-jeerakasala',
+    name: 'Jeerakasala Rice',
+    category: 'rice',
+    type: 'Non-basmati',
+    process: 'Not stated',
+    grain: 'Short',
+    origin: ['Bengal', 'Odisha'],
+    packSizes: SOUTH_SIZES,
+    packTypes: SOUTH_BAGS,
+    broken: '5.00%',
+    moisture: '11%',
+    colour: 'White',
+    hsCode: HS,
+    speciality: '100% sortex rice',
+    summary:
+      'Used for pulao, biryani and kheer. Described on the source as a biryani rice.',
+    notes: [
+      'The source specification is the 1121 Basmati Steam text (8.35 mm, extra long grain), which contradicts the "short grain" listing. Specification left blank.',
+      'Source says "Orissa"; shown here as Odisha.',
+    ],
+  },
+  {
+    id: 'rice-palakkadan-matta',
+    name: 'Palakkadan Matta Rice (Unda)',
+    category: 'rice',
+    type: 'Non-basmati',
+    process: 'Not stated',
+    grain: 'Short',
+    origin: ['Kerala'],
+    packSizes: SOUTH_SIZES,
+    packTypes: SOUTH_BAGS,
+    broken: '5.00%',
+    moisture: '11%',
+    colour: 'Golden',
+    hsCode: HS,
+    speciality: '100% sortex rice',
+    summary: 'Cultivated in Kerala and widely consumed in South India.',
+    notes: [
+      'The source specification is the 1121 Basmati Steam text (8.35 mm, extra long grain), which contradicts the "short grain" listing. Specification left blank.',
+    ],
+  },
+];
+
+// Applies to the whole rice list: every variety uses HS code 10063020.
+// The tariff code for non-basmati varieties may differ; confirm against the
+// official ITC-HS schedule with GeoExcel before relying on it.
+export const riceGlobalNote =
+  'HS codes are shown as listed on the current site and are to be confirmed by GeoExcel.';
