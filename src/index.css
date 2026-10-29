@@ -1,1 +1,24 @@
+/* Free Google Font (DM Sans). Imports with a URL must come first. */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap");
 @import "tailwindcss";
+
+/* Brand colours, approximated from the GeoExcel logo.
+   Adjust the hex values after picking exact colours from the logo. */
+@theme {
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --color-navy: #0b2a4a;
+  --color-leaf: #2f7d4a;
+  --color-flame: #f08a1c;
+  --color-brick: #d93a3f;
+  --color-aqua: #4fc0a8;
+}
+
+/* Respect users who ask for less motion. All our motion is CSS transitions. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
