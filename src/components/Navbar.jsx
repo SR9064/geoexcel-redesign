@@ -4,17 +4,21 @@ import { useEnquiry } from '../context/EnquiryContext.jsx'
 
 const links = [
   { to: '/', label: 'Home', end: true },
+  { to: '/about', label: 'About' },
   { to: '/products', label: 'Products' },
-  { to: '/credentials', label: 'Credentials' },
+  { to: '/certificates', label: 'Certificates' },
+  { to: '/sustainability', label: 'Sustainability' },
   { to: '/contact', label: 'Contact' },
 ]
 
+// The full menu shows from 1024px (lg). Below that it collapses into a button,
+// so the links never get cramped (a problem on the current site).
 export default function Navbar() {
   const [open, setOpen] = useState(false)
   const { count } = useEnquiry()
 
   const linkClass = ({ isActive }) =>
-    `block rounded-md px-3 py-3 text-base font-medium md:py-2 ${
+    `block rounded-md px-3 py-3 text-base font-medium lg:py-2 ${
       isActive
         ? 'text-navy underline decoration-flame decoration-2 underline-offset-8'
         : 'text-slate-600 hover:text-navy'
@@ -38,7 +42,7 @@ export default function Navbar() {
 
         <div className="flex items-center gap-2">
           {/* Desktop links */}
-          <nav className="hidden items-center gap-1 md:flex" aria-label="Main">
+          <nav className="hidden items-center gap-1 lg:flex" aria-label="Main">
             {links.map((l) => (
               <NavLink key={l.to} to={l.to} end={l.end} className={linkClass}>
                 {l.label}
@@ -62,7 +66,7 @@ export default function Navbar() {
           {/* Mobile menu button */}
           <button
             type="button"
-            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md border border-slate-300 text-lg md:hidden"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-md border border-slate-300 text-lg lg:hidden"
             aria-label="Menu"
             aria-expanded={open}
             aria-controls="mobile-menu"
@@ -75,7 +79,7 @@ export default function Navbar() {
 
       {/* Mobile links */}
       {open && (
-        <nav id="mobile-menu" className="border-t border-slate-200 px-4 pb-3 md:hidden" aria-label="Main">
+        <nav id="mobile-menu" className="border-t border-slate-200 px-4 pb-3 lg:hidden" aria-label="Main">
           {links.map((l) => (
             <NavLink key={l.to} to={l.to} end={l.end} className={linkClass} onClick={() => setOpen(false)}>
               {l.label}

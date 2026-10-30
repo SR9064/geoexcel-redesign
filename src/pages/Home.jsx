@@ -8,11 +8,12 @@ const TINTS = {
   spices: 'bg-red-100 text-red-900',
   iqf: 'bg-teal-100 text-teal-900',
   oils: 'bg-yellow-100 text-yellow-900',
+  fashion: 'bg-stone-200 text-stone-800',
 }
-const SHORT = { apeda: 'APEDA', fssai: 'FSSAI', udyam: 'Udyam (MSME)', iec: 'IEC (DGFT)' }
+const SHORT = { apeda: 'APEDA', fssai: 'FSSAI', udyam: 'Udyam (MSME)', iec: 'IEC (DGFT)', cle: 'CLE (leather footwear)' }
 const VERTICALS = ['Agriculture', 'Automotive', 'Construction', 'Trading']
 const STEPS = [
-  ['Find', 'Search or filter 44 products by category, origin and pack size.'],
+  ['Find', `Search or filter ${products.length} products by category, origin and pack size.`],
   ['Add to enquiry', 'Collect everything you need in one list.'],
   ['Send one request', 'Add quantities and your destination, and send a complete quote request.'],
 ]
@@ -42,68 +43,80 @@ export default function Home() {
   return (
     <div>
       {/* Hero + quick-start */}
-      <section className="bg-navy text-white">
-        <div className="mx-auto grid max-w-6xl gap-8 px-4 py-10 md:py-14 lg:grid-cols-2 lg:items-center">
-          <div>
-            <p className="text-sm font-medium uppercase tracking-wider text-flame">GeoExcel · Bengaluru, India</p>
-            <h1 className="mt-3 text-3xl font-bold leading-tight md:text-5xl">
-              Find your product. Send one complete quote request.
-            </h1>
-            <p className="mt-4 max-w-xl text-base text-slate-200 md:text-lg">
-              Rice, whole spices, IQF vegetables, oils and ghee for international and domestic trade. Choose what you
-              need, add it to your enquiry, and tell GeoExcel the quantity and destination in one go.
-            </p>
-            <Link
-              to="/products"
-              className="mt-6 inline-flex min-h-12 items-center rounded-md bg-flame px-6 text-base font-medium text-navy transition-colors hover:bg-flame/90"
-            >
-              Browse all {products.length} products
-            </Link>
-          </div>
+      <section className="relative overflow-hidden bg-navy">
+        <img
+          src="/images/products/banner.png"
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
+          onError={(e) => {
+            e.currentTarget.style.display = 'none'
+          }}
+        />
 
-          <form onSubmit={onSubmit} className="rounded-xl bg-white p-4 text-slate-800 shadow-lg md:p-6" aria-labelledby="h-finder">
-            <h2 id="h-finder" className="text-lg font-bold text-navy">
-              Find my product
-            </h2>
-            <p className="mt-1 text-sm text-slate-600">Two choices take you to a filtered catalogue.</p>
-            <div className="mt-4 space-y-3">
-              <label className="block text-sm font-medium text-slate-700">
-                Product type
-                <select
-                  className={`${field} mt-1`}
-                  value={category}
-                  onChange={(e) => {
-                    setCategory(e.target.value)
-                    setPack('') // pack sizes depend on the category
-                  }}
-                >
-                  <option value="">Any product</option>
-                  {categories.map((c) => (
-                    <option key={c.id} value={c.id}>
-                      {c.label}
-                    </option>
-                  ))}
-                </select>
-              </label>
-              <label className="block text-sm font-medium text-slate-700">
-                Pack size
-                <select className={`${field} mt-1`} value={pack} onChange={(e) => setPack(e.target.value)}>
-                  <option value="">Any pack size</option>
-                  {packOptions.map((p) => (
-                    <option key={p} value={p}>
-                      {p}
-                    </option>
-                  ))}
-                </select>
-              </label>
+        <div className="relative mx-auto max-w-6xl px-4 py-10 md:py-14">
+          <div className="grid gap-8 rounded-xl bg-white p-6 text-slate-800 shadow-lg md:p-10 lg:grid-cols-2 lg:items-center">
+            <div>
+              <p className="text-sm font-medium uppercase tracking-wider text-slate-600">GeoExcel · Bengaluru, India</p>
+              <h1 className="mt-3 text-3xl font-bold leading-tight text-navy md:text-5xl">
+                Find your product. Send one complete quote request.
+              </h1>
+              <p className="mt-4 max-w-xl text-base text-slate-600 md:text-lg">
+                Rice, whole spices, IQF vegetables, oils and ghee, and leather footwear, for international and domestic
+                trade. Choose what you need, add it to your enquiry, and tell GeoExcel the quantity and destination in
+                one go.
+              </p>
+              <Link
+                to="/products"
+                className="mt-6 inline-flex min-h-12 items-center rounded-md bg-flame px-6 text-base font-medium text-navy transition-colors hover:bg-flame/90"
+              >
+                Browse all {products.length} products
+              </Link>
             </div>
-            <button
-              type="submit"
-              className="mt-4 min-h-12 w-full rounded-md bg-navy px-6 text-base font-medium text-white transition-colors hover:bg-navy/90"
-            >
-              Show matching products
-            </button>
-          </form>
+
+            <form onSubmit={onSubmit} className="rounded-xl border border-slate-200 bg-stone-50 p-4 text-slate-800 md:p-6" aria-labelledby="h-finder">
+              <h2 id="h-finder" className="text-lg font-bold text-navy">
+                Find my product
+              </h2>
+              <p className="mt-1 text-sm text-slate-600">Two choices take you to a filtered catalogue.</p>
+              <div className="mt-4 space-y-3">
+                <label className="block text-sm font-medium text-slate-700">
+                  Product type
+                  <select
+                    className={`${field} mt-1`}
+                    value={category}
+                    onChange={(e) => {
+                      setCategory(e.target.value)
+                      setPack('') // pack sizes depend on the category
+                    }}
+                  >
+                    <option value="">Any product</option>
+                    {categories.map((c) => (
+                      <option key={c.id} value={c.id}>
+                        {c.label}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="block text-sm font-medium text-slate-700">
+                  Pack size
+                  <select className={`${field} mt-1`} value={pack} onChange={(e) => setPack(e.target.value)}>
+                    <option value="">Any pack size</option>
+                    {packOptions.map((p) => (
+                      <option key={p} value={p}>
+                        {p}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+              </div>
+              <button
+                type="submit"
+                className="mt-4 min-h-12 w-full rounded-md bg-navy px-6 text-base font-medium text-white transition-colors hover:bg-navy/90"
+              >
+                Show matching products
+              </button>
+            </form>
+          </div>
         </div>
       </section>
 
@@ -112,17 +125,33 @@ export default function Home() {
         <h2 id="h-categories" className="text-2xl font-bold text-navy">
           What GeoExcel supplies
         </h2>
-        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {categories.map((c) => {
             const count = products.filter((p) => p.category === c.id).length
+            // Photo for the card: the first product in this category (its own photo)
+            const first = products.find((p) => p.category === c.id)
+            const photo = first ? (first.images?.[0] ?? `/images/products/${first.id}.png`) : null
             return (
               <Link
                 key={c.id}
                 to={`/products?category=${c.id}`}
                 className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md"
               >
-                <div className={`flex h-20 items-end p-3 text-xs font-medium uppercase tracking-wider ${TINTS[c.id]}`}>
-                  {count} products
+                <div className={`group relative flex h-28 items-end overflow-hidden text-xs font-medium uppercase tracking-wider ${TINTS[c.id]}`}>
+                  {photo && (
+                    <img
+                      src={photo}
+                      alt=""
+                      loading="lazy"
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+                      onError={(e) => {
+                        e.currentTarget.style.display = 'none'
+                      }}
+                    />
+                  )}
+                  <span className="relative m-3 rounded bg-white/90 px-2 py-1 text-slate-800">
+                    {count} {count === 1 ? 'product' : 'products'}
+                  </span>
                 </div>
                 <div className="p-4">
                   <p className="text-lg font-bold text-navy">{c.label}</p>
@@ -163,12 +192,12 @@ export default function Home() {
         <ul className="mt-4 flex flex-wrap gap-2">
           {credentials.map((c) => (
             <li key={c.id} className="rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-navy">
-              {SHORT[c.id]}
+              {SHORT[c.id] ?? c.title}
             </li>
           ))}
         </ul>
-        <Link to="/credentials" className="mt-4 inline-flex min-h-11 items-center text-sm font-medium text-navy underline">
-          Review details and verification links
+        <Link to="/certificates" className="mt-4 inline-flex min-h-11 items-center text-sm font-medium text-navy underline">
+          See the certificates and verification links
         </Link>
       </section>
 
@@ -191,8 +220,11 @@ export default function Home() {
             ))}
           </ul>
           <p className="mt-3 max-w-3xl text-sm text-slate-600">
-            As described on geoexcel.group. This site covers the food and agri-product range for trade buyers.
+            As described on geoexcel.group. This site covers the food, agri-product and footwear range for trade buyers.
           </p>
+          <Link to="/about" className="mt-2 inline-flex min-h-11 items-center text-sm font-medium text-navy underline">
+            Read the full story
+          </Link>
         </div>
       </section>
 

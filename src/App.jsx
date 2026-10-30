@@ -1,10 +1,12 @@
-import { Link, Route, Routes } from 'react-router-dom'
+import { Link, Navigate, Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar.jsx'
 import Footer from './components/Footer.jsx'
 import Home from './pages/Home.jsx'
+import About from './pages/About.jsx'
 import Products from './pages/Products.jsx'
 import Enquiry from './pages/Enquiry.jsx'
-import Credentials from './pages/Credentials.jsx'
+import Certificates from './pages/Certificates.jsx'
+import Sustainability from './pages/Sustainability.jsx'
 import Contact from './pages/Contact.jsx'
 
 function NotFound() {
@@ -29,9 +31,12 @@ export default function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
           <Route path="/products" element={<Products />} />
           <Route path="/enquiry" element={<Enquiry />} />
-          <Route path="/credentials" element={<Credentials />} />
+          <Route path="/certificates" element={<Certificates />} />
+          <Route path="/credentials" element={<Navigate to="/certificates" replace />} />
+          <Route path="/sustainability" element={<Sustainability />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

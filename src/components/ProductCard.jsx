@@ -1,14 +1,25 @@
 import { useState } from 'react'
 import { useEnquiry } from '../context/EnquiryContext.jsx'
+import Carousel from './Carousel.jsx'
 
-// Placeholder colours per category (we are not copying GeoExcel's photos).
+// Photos live in public/images/products/ and are named after the product id,
+// e.g. rice-1121-steam.png. If a photo is missing, a coloured block is shown.
+const imageSrc = (id) => `/images/products/${id}.png`
+
 const TINTS = {
   rice: 'bg-amber-100 text-amber-900',
   spices: 'bg-red-100 text-red-900',
   iqf: 'bg-teal-100 text-teal-900',
   oils: 'bg-yellow-100 text-yellow-900',
+  fashion: 'bg-stone-200 text-stone-800',
 }
-const LABELS = { rice: 'Rice', spices: 'Whole spice', iqf: 'IQF & frozen', oils: 'Oil & ghee' }
+const LABELS = {
+  rice: 'Rice',
+  spices: 'Whole spice',
+  iqf: 'IQF & frozen',
+  oils: 'Oil & ghee',
+  fashion: 'Fashion & lifestyle',
+}
 const TBC = 'To be confirmed by GeoExcel'
 
 function Spec({ label, value }) {
@@ -22,6 +33,7 @@ function Spec({ label, value }) {
 
 export default function ProductCard({ product }) {
   const [open, setOpen] = useState(false)
+  const [imageFailed, setImageFailed] = useState(false)
   const { has, add, remove } = useEnquiry()
   const added = has(product.id)
 
@@ -31,19 +43,34 @@ export default function ProductCard({ product }) {
 
   return (
     <article className="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md">
-      <div className={`flex h-24 items-end p-3 text-xs font-medium uppercase tracking-wider ${TINTS[product.category]}`}>
-        {LABELS[product.category]}
+      <div className={`group relative flex h-40 items-end overflow-hidden ${TINTS[product.category]}`}>
+        {!imageFailed && (
+          <img
+            src={product.images?.[0] ?? imageSrc(product.id)}
+            alt={product.imageAlts?.[0] ?? product.name}
+            loading="lazy"
+            width="400"
+            height="160"
+            className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
+            onError={() => setImageFailed(true)}
+          />
+        )}
+        <span className="relative m-3 rounded bg-white/90 px-2 py-1 text-xs font-medium uppercase tracking-wider text-slate-800">
+          {LABELS[product.category]}
+        </span>
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">
         <h3 className="text-lg font-bold text-navy">{product.name}</h3>
         <p className="text-sm text-slate-600">{product.summary}</p>
 
-        <dl className="grid grid-cols-2 gap-x-3 gap-y-2">
-          {keySpecs.map(([label, value]) => (
-            <Spec key={label} label={label} value={value} />
-          ))}
-        </dl>
+        {keySpecs.length > 0 && (
+          <dl className="grid grid-cols-2 gap-x-3 gap-y-2">
+            {keySpecs.map(([label, value]) => (
+              <Spec key={label} label={label} value={value} />
+            ))}
+          </dl>
+        )}
 
         <p className="text-sm">
           <span className="text-slate-500">Pack sizes: </span>
@@ -62,6 +89,9 @@ export default function ProductCard({ product }) {
 
         {open && (
           <div id={`details-${product.id}`} className="space-y-3 border-t border-slate-200 pt-3">
+            {product.images?.length > 1 && (
+              <Carousel images={product.images} label={`${product.name} photos`} />
+            )}
             {moreSpecs.length > 0 && (
               <dl className="grid grid-cols-2 gap-x-3 gap-y-2">
                 {moreSpecs.map(([label, value]) => (

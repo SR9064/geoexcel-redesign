@@ -1,9 +1,9 @@
-// Credentials GeoExcel lists on its certificates page, reviewed 28 Oct 2026.
-// IMPORTANT: numbers and dates below were read from screenshots of the scans.
+// Credentials GeoExcel lists on its certificates page, reviewed 29 Oct 2026.
+// IMPORTANT: numbers and dates were read from screenshots of the scans.
 // Re-check every digit against geoexcel.group/certificates before submitting.
 //
 // Deliberately NOT included (they appear on the raw scans):
-//  - PAN, phone numbers, personal email addresses, signatory/officer names
+//  - PAN, phone numbers, email addresses, director/signatory/officer names
 //  - the IEC number, because an IEC is the company's PAN
 //
 // Rules: nothing is labelled "valid" or "verified". `null` is shown as
@@ -16,8 +16,8 @@ export const credentials = [
     issuer: 'Agricultural and Processed Food Products Export Development Authority (APEDA), Bengaluru',
     number: 'RCMC/APEDA/04107/2023-2024',
     scope: 'Export of frozen potato products such as French fries, potato wedges, hash brown and burger patties',
-    issued: '29 Dec 2023',
-    validUpTo: null,
+    issued: '22 Dec 2023',
+    validUpTo: '31 Mar 2028',
     status: 'listed',
     note: 'This registration lists frozen potato products only. Other product categories are not mentioned in it.',
     verifyUrl: 'https://apeda.gov.in',
@@ -32,7 +32,7 @@ export const credentials = [
     issued: '21 Feb 2024 (new licence)',
     validUpTo: '20 Feb 2025',
     status: 'date-passed',
-    note: 'Check this licence number on the FSSAI FoSCoS portal and ask GeoExcel for the current licence.',
+    note: 'The first page says "for details, refer annexure". The licence has a validity annexure that was not reviewed, so the current end date may differ. Check the number on FSSAI FoSCoS.',
     verifyUrl: 'https://foscos.fssai.gov.in',
     verifyLabel: 'Check on FSSAI FoSCoS',
   },
@@ -63,10 +63,23 @@ export const credentials = [
     verifyUrl: 'https://www.dgft.gov.in',
     verifyLabel: 'Go to DGFT',
   },
+  {
+    id: 'cle',
+    title: 'Council for Leather Exports registration-cum-membership certificate',
+    issuer: 'Council for Leather Exports (CLE), Chennai',
+    number: 'RCMC/CLE/00635/2023-2024',
+    scope: 'Leather footwear',
+    issued: '2 Mar 2024',
+    validUpTo: '31 Mar 2024',
+    status: 'date-passed',
+    note: 'This relates to the Fashion & Lifestyle range, not the food products. Whether that range is active is to be confirmed by GeoExcel.',
+    verifyUrl: 'https://leatherindia.org',
+    verifyLabel: 'Go to Council for Leather Exports',
+  },
 ]
 
 export const entity = {
   legalName: 'GeoExcel Production Trades Private Limited',
   incorporated: '8 Nov 2023',
-  reviewedOn: '28 Oct 2026',
+  reviewedOn: '29 Oct 2026',
 }

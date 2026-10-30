@@ -4,10 +4,11 @@
 // A spec value of null means "missing or contradictory on the source" and the
 // UI shows "To be confirmed by GeoExcel".
 
-import { rice, riceGlobalNote } from './rice.js';
-import { spices } from './spices.js';
-import { iqf } from './iqf.js';
-import { oils } from './oils.js';
+import { rice, riceGlobalNote } from './rice.js'
+import { spices } from './spices.js'
+import { iqf } from './iqf.js'
+import { oils } from './oils.js'
+import { fashion } from './fashion.js'
 
 // Rice stores its specs as top-level fields; move them into `specs`.
 const riceProducts = rice.map((r) => ({
@@ -33,21 +34,22 @@ const riceProducts = rice.map((r) => ({
   process: r.process,
   grain: r.grain,
   notes: r.notes,
-}));
+}))
 
-export const products = [...riceProducts, ...spices, ...iqf, ...oils];
+export const products = [...riceProducts, ...spices, ...iqf, ...oils, ...fashion]
 
 export const categories = [
   { id: 'rice', label: 'Rice' },
   { id: 'spices', label: 'Whole spices' },
   { id: 'iqf', label: 'IQF & frozen' },
   { id: 'oils', label: 'Oils & ghee' },
-];
+  { id: 'fashion', label: 'Fashion & lifestyle' },
+]
 
-export const catalogNote = riceGlobalNote;
+export const catalogNote = riceGlobalNote
 
-export const getProduct = (id) => products.find((p) => p.id === id);
+export const getProduct = (id) => products.find((p) => p.id === id)
 
 // Unique, sorted values for a filter, e.g. uniqueValues('origin')
 export const uniqueValues = (field, list = products) =>
-  [...new Set(list.flatMap((p) => p[field] ?? []))].sort();
+  [...new Set(list.flatMap((p) => p[field] ?? []))].sort()
