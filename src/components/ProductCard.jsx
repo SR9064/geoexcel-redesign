@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { useEnquiry } from '../context/EnquiryContext.jsx'
-import Carousel from './Carousel.jsx'
 
 // Photos live in public/images/products/ and are named after the product id,
-// e.g. rice-1121-steam.png. If a photo is missing, a coloured block is shown.
+// e.g. rice-1121-steam.png. A product can also list several photos in an
+// `images` array (see fashion.js); then the top photo becomes a small slider.
+// If a photo is missing, a coloured block is shown instead.
 const imageSrc = (id) => `/images/products/${id}.png`
 
 const TINTS = {
@@ -22,6 +23,9 @@ const LABELS = {
 }
 const TBC = 'To be confirmed by GeoExcel'
 
+const arrowClass =
+  'absolute top-1/2 z-10 inline-flex h-11 w-11 -translate-y-1/2 items-center justify-center rounded-full bg-white/90 text-xl text-navy shadow transition-colors hover:bg-white'
+
 function Spec({ label, value }) {
   return (
     <div>
@@ -33,9 +37,14 @@ function Spec({ label, value }) {
 
 export default function ProductCard({ product }) {
   const [open, setOpen] = useState(false)
-  const [imageFailed, setImageFailed] = useState(false)
+  const [photo, setPhoto] = useState(0) // which photo is showing
+  const [failed, setFailed] = useState({}) // photos that could not load
   const { has, add, remove } = useEnquiry()
   const added = has(product.id)
+
+  const photos = product.images?.length ? product.images : [imageSrc(product.id)]
+  const currentSrc = photos[photo]
+  const go = (step) => setPhoto((p) => (p + step + photos.length) % photos.length)
 
   const specs = Object.entries(product.specs)
   const keySpecs = specs.slice(0, 3) // shown on the card
@@ -44,20 +53,39 @@ export default function ProductCard({ product }) {
   return (
     <article className="flex flex-col overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm transition-shadow hover:shadow-md">
       <div className={`group relative flex h-40 items-end overflow-hidden ${TINTS[product.category]}`}>
-        {!imageFailed && (
+        {!failed[currentSrc] && (
           <img
-            src={product.images?.[0] ?? imageSrc(product.id)}
-            alt={product.imageAlts?.[0] ?? product.name}
+            key={currentSrc}
+            src={currentSrc}
+            alt={product.imageAlts?.[photo] ?? product.name}
             loading="lazy"
             width="400"
             height="160"
             className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-110"
-            onError={() => setImageFailed(true)}
+            onError={() => setFailed((f) => ({ ...f, [currentSrc]: true }))}
           />
         )}
+
         <span className="relative m-3 rounded bg-white/90 px-2 py-1 text-xs font-medium uppercase tracking-wider text-slate-800">
           {LABELS[product.category]}
         </span>
+
+        {photos.length > 1 && (
+          <>
+            <button type="button" aria-label="Previous photo" onClick={() => go(-1)} className={`${arrowClass} left-2`}>
+              ‹
+            </button>
+            <button type="button" aria-label="Next photo" onClick={() => go(1)} className={`${arrowClass} right-2`}>
+              ›
+            </button>
+            <span
+              className="absolute bottom-3 right-3 z-10 rounded bg-white/90 px-2 py-1 text-xs font-medium text-slate-800"
+              aria-live="polite"
+            >
+              {photo + 1} / {photos.length}
+            </span>
+          </>
+        )}
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">
@@ -89,9 +117,6 @@ export default function ProductCard({ product }) {
 
         {open && (
           <div id={`details-${product.id}`} className="space-y-3 border-t border-slate-200 pt-3">
-            {product.images?.length > 1 && (
-              <Carousel images={product.images} label={`${product.name} photos`} />
-            )}
             {moreSpecs.length > 0 && (
               <dl className="grid grid-cols-2 gap-x-3 gap-y-2">
                 {moreSpecs.map(([label, value]) => (
