@@ -130,7 +130,7 @@ All content comes from GeoExcel's own public website, reviewed on 28 to 30 Octob
 - **Data is transcribed, not corrected.** Where the source contradicts itself or looks wrong, the value is left blank (shown as "To be confirmed by GeoExcel") or the conflict is recorded in the product's `notes`. Examples: two rice entries carry another variety's specification text, and the nutmeg description is the mace text.
 - **Quantities, units and buyer types** in the enquiry form are assumptions for GeoExcel to adjust.
 - **HS codes** are shown exactly as listed and are marked as to be confirmed.
-- **Images** are GeoExcel's own images from its current website, used here only for this assignment. Where a product had no usable photo, a coloured category block is shown. Photos that show a third-party brand name were left out.
+- **Images** are GeoExcel's own images from its current website, used here only for this assignment.Some were converted or cut out with an AI image tool (the footwear photos), so they may differ slightly from the originals. None are approved by GeoExcel, and a production version would use approved photography. Where a product had no usable photo, a coloured category block is shown. Photos that show a third-party brand name were left out.
 - **Certificates:** the carousel shows the original documents as published on GeoExcel's site. The summary cards leave out the IEC number, because an IEC is the company's PAN.
 - **Sustainability** shows GeoExcel's statements as its own. The UN Sustainable Development Goals artwork is shown as on GeoExcel's site, with a note that this does not imply endorsement by the United Nations.
 
@@ -149,6 +149,13 @@ All content comes from GeoExcel's own public website, reviewed on 28 to 30 Octob
 
 Semantic headings and landmarks, labelled form fields with error messages tied to their inputs, a keyboard-operable menu, filters, photo sliders and carousel, visible focus, 44 px tap targets, and reduced-motion support. This is a good-practice effort and has not been formally audited.
 
+
 ## Tools
 
-Built with the help of an AI coding assistant (Claude). I can explain the code and the decisions in it.
+- **Editor and environment:** Visual Studio Code, Node.js and npm
+- **Build and code quality:** Vite, Oxlint, and `check-images.mjs` for image file names
+- **Version control:** Git and GitHub
+- **Deployment:** Vercel, deployed from the GitHub repository
+- **Testing:** Chrome DevTools, at desktop and mobile sizes
+- **Forms and maps:** Formspree for enquiries, OpenStreetMap for the map
+- **AI assistants:** AI coding assistants (Claude) and an AI image tool for converting and cutting out photos, as the assignment allows. I can explain the code and the decisions in it.
